@@ -1,7 +1,7 @@
-def registry= "940090592876.dkr.ecr.ca-cental-1.amazonaws.com"
+def registry= "940090592876.dkr.ecr.ca-central-1.amazonaws.com"
 def tag = ""
 def ms = "vote"
-def region = "ca-cental-1"
+def region = "ca-central-1"
 
 pipeline{
     agent any
@@ -10,7 +10,7 @@ pipeline{
             steps{
                 script{
                     tag = getTag()
-                    ms = getMsName()
+                  //  ms = getMsName()
                 }
             }
         }
