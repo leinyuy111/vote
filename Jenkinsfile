@@ -39,7 +39,7 @@ pipeline{
             }
 
         stage("Deploy to Dev"){
-            when{branch 'develop'}
+            when{ anyof { branch 'main'; branch 'develop'} }
             steps{
                 script{
                     withAWS(region: region, credentials:'aws_creds'){
@@ -61,7 +61,7 @@ def getMsName(){
 def getTag(){
  sh "ls -l"
  version = "1.0.0"
- print "version: ${version}"
+ echo "version: ${version}"
 
  def tag = ""
   if (env.BRANCH_NAME == "main"){
