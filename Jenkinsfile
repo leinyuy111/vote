@@ -1,4 +1,4 @@
-def registry= "940090592876.dkr.ecr.ca-central-1.amazonaws.com"
+def registry= "975050242866.dkr.ecr.ca-central-1.amazonaws.com"
 def tag = ""
 def ms = "vote"
 def region = "ca-central-1"
