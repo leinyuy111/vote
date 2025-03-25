@@ -25,8 +25,8 @@ pipeline{
         stage("Login to Ecr"){
             steps{
                 script{
-                    withAWS(region:"$region",credentials:'aws_creds'){
-                        sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}"
+                    withAWS(region: region, credentials:'aws_creds'){
+                        ecrLogin()
                     }
                 }
             }
@@ -35,20 +35,18 @@ pipeline{
         stage("Docker push"){
             steps{
                 script{
-                    withAWS(region:"$region",credentials:'aws_creds'){
                         sh "docker push ${registry}/${ms}:${tag}"
                     }
                 }
             }
-        }
 
         stage("Deploy to Dev"){
             when{branch 'develop'}
             steps{
                 script{
-                    withAWS(region:"$region",credentials:'aws_creds'){
+                    withAWS(region: region, credentials:'aws_creds'){
                         sh "aws eks update-kubeconfig --name vote-dev"
-                        sh "kubectl set image deploy/result result=${tag} -n vote "
+                        sh "kubectl set image deploy/result result=${registry}/${ms}:${tag} -n vote "
                         sh "kubectl rollout restart deploy/result -n vote"
                     }
                 }
