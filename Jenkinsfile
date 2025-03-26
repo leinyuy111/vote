@@ -18,13 +18,6 @@ pipeline {
                 }
             }
         }
-
-        stage("Clone Repository") {
-            steps {
-                git 'https://leinyuy111/vote'
-            }
-        }
-
         stage("SonarQube Analysis") {
             steps {
                 script {
