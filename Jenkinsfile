@@ -39,7 +39,6 @@ pipeline{
             }
 
         stage("Deploy to Dev"){
-            when{branch 'main'}
             steps{
                 script{
                     withAWS(region: region, credentials:'aws_creds'){
