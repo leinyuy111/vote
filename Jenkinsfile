@@ -39,7 +39,7 @@ pipeline{
             }
 
         stage("Deploy to Dev"){
-            when{ anyof { branch 'main'; branch 'develop'} }
+            when{branch 'main'}
             steps{
                 script{
                     withAWS(region: region, credentials:'aws_creds'){
